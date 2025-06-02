@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>StrongerThan Certificate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background-color: #0a0a23;
+      color: #fefefe;
+      padding: 40px;
+      text-align: center;
+    }
+    .certificate {
+      background: linear-gradient(135deg, #0a0a23, #1a1a40);
+      border: 12px solid #ffcc70;
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 800px;
+      margin: auto;
+      position: relative;
+      color: #fff;
+      box-shadow: 0 0 12px rgba(255, 204, 112, 0.5);
+    }
+    h1 {
+      font-size: 2.8em;
+      margin-bottom: 10px;
+      color: #ffcc70;
+    }
+    h2 {
+      margin: 20px 0;
+      font-size: 1.5em;
+      color: #fefefe;
+    }
+    .name {
+      font-size: 2em;
+      margin: 20px 0;
+      background: linear-gradient(to right, #f97316, #f43f5e, #6366f1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .course {
+      font-style: italic;
+      color: #d1d5db;
+    }
+    .emblem {
+      width: 80px;
+      position: absolute;
+      top: 30px;
+      left: 30px;
+    }
+    .logo {
+      width: 100px;
+      position: absolute;
+      top: 25px;
+      right: 30px;
+    }
+    .input-container {
+      margin: 30px auto;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      width: 60%;
+      max-width: 300px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #f97316;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    canvas {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="input-container">
+    <h2>Enter your name to generate your certificate:</h2>
+    <input type="text" id="nameInput" placeholder="Your Full Name" />
+    <br>
+    <button onclick="generateCertificate()">Generate Certificate</button>
+  </div>
+
+  <div id="certificate" class="certificate" style="display: none;">
+    <img src="shield_eye_certificate_badge.png" class="emblem" alt="Emblem" />
+    <img src="StrongerThan_Logo.png" class="logo" alt="StrongerThan Logo" />
+    <h1>Certificate of Completion</h1>
+    <h2>This certifies that</h2>
+    <div class="name" id="certName">[Your Name]</div>
+    <div class="course">has successfully completed the<br><strong>Situational Awareness – Survival Essentials Mini Course</strong></div>
+    <h2>Presented by StrongerThan</h2>
+  </div>
+
+  <button id="downloadBtn" onclick="downloadCertificate()" style="display:none;">Download My Certificate</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+    function generateCertificate() {
+      const name = document.getElementById("nameInput").value.trim();
+      if (name === "") {
+        alert("Please enter your name.");
+        return;
+      }
+      document.getElementById("certName").innerText = name;
+      document.getElementById("certificate").style.display = "block";
+      document.getElementById("downloadBtn").style.display = "inline-block";
+    }
+
+    function downloadCertificate() {
+      const cert = document.getElementById("certificate");
+      html2canvas(cert).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'StrongerThan_Certificate.png';
+        link.href = canvas.toDataURL();
+        link.click();
+      });
+    }
+  </script>
+
+</body>
+</html>
